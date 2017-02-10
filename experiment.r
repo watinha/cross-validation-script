@@ -135,6 +135,34 @@ for (i in 1:length(names)) {
     csv[2 + i, 15] <- r[['Fscore']]
 }
 
+# TEST RESULTS
+# Literature
+X <- dataset_test[,control_features[1:(length(control_features) - 1)]]
+y <- dataset_test[,'Result']
+test_results_literature <- decision_tree(X, y, X, y)
+# Target approach
+X <- dataset_test[,target_features[1:(length(target_features) - 1)]]
+y <- dataset_test[,'Result']
+test_results_target <- decision_tree(X, y, X, y)
+# Saving results
+csv[13, 1] <- 'Test'
+r <- metrics(test_results_literature)
+csv[13, 2] <- r[['confusion_matrix']][2, 2]
+csv[13, 3] <- r[['confusion_matrix']][1, 1]
+csv[13, 4] <- r[['confusion_matrix']][1, 2]
+csv[13, 5] <- r[['confusion_matrix']][2, 1]
+csv[13, 6] <- r[['precision']]
+csv[13, 7] <- r[['recall']]
+csv[13, 8] <- r[['Fscore']]
+r <- metrics(test_results_target)
+csv[13, 9]  <- r[['confusion_matrix']][2, 2]
+csv[13, 10] <- r[['confusion_matrix']][1, 1]
+csv[13, 11] <- r[['confusion_matrix']][1, 2]
+csv[13, 12] <- r[['confusion_matrix']][2, 1]
+csv[13, 13] <- r[['precision']]
+csv[13, 14] <- r[['recall']]
+csv[13, 15] <- r[['Fscore']]
+
 write.table(csv, file="results.csv", sep=",", qmethod='double', row.names=FALSE, col.names=FALSE)
 
 
