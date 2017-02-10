@@ -2,8 +2,8 @@ library(C50)
 library(RWeka)
 library(caret)
 
-#dataset_cv <- read.arff('data/real-dataset.trainning.arff')
-dataset_cv <- read.arff('data/t.arff')
+dataset_cv <- read.arff('data/real-dataset.trainning.arff')
+#dataset_cv <- read.arff('data/t.arff')
 dataset_test <- read.arff('data/real-dataset.test.arff')
 
 target_features <- c('displayed',
@@ -48,39 +48,7 @@ metrics <- function (confusion_table) {
     return (list(confusion_matrix=confusion_table, precision=precision, recall=recall, Fscore=Fscore))
 }
 
-# TRAINNING RESULTS
-# Literature
-X <- dataset_cv[,control_features[1:(length(control_features) - 1)]]
-y <- dataset_cv[,'Result']
-train_results_literature <- decision_tree(X, y, X, y)
-# Target approach
-X <- dataset_cv[,target_features[1:(length(target_features) - 1)]]
-y <- dataset_cv[,'Result']
-train_results_target <- decision_tree(X, y, X, y)
-
-# CROSS-VALIDATION
-folds <- createFolds(dataset_cv[,'Result'])
-names <- names(folds)
-results_literature <- c()
-results_target <- c()
-for (i in 1:length(names)) {
-    train_fold <- dataset_cv[-folds[[names[i]]],]
-    cv_fold <- dataset_cv[folds[[names[i]]],]
-    # Literature
-    X <- train_fold[,control_features[1:(length(control_features) - 1)]]
-    y <- train_fold[,'Result']
-    X_cv <- cv_fold[,control_features[1:(length(control_features) - 1)]]
-    y_cv <- cv_fold[,'Result']
-    results_literature[i] <- decision_tree(X, y, X_cv, y_cv)
-    # Target approach
-    X <- train_fold[,target_features[1:(length(target_features) - 1)]]
-    y <- train_fold[,'Result']
-    X_cv <- cv_fold[,target_features[1:(length(target_features) - 1)]]
-    y_cv <- cv_fold[,'Result']
-    results_target[i] <- decision_tree(X, y, X_cv, y_cv)
-}
-
-# SAVING RESULTS
+# Setting output
 csv <- matrix(nrow = 13, # 1 column header + 1 trainning result + 10 fold cross-validation result
               ncol = 15) # 1 column for title + 7 metrics * 2 approaches
 
@@ -99,6 +67,18 @@ csv[1, 13] <- 'Precision'
 csv[1, 14] <- 'Recall'
 csv[1, 15] <- 'F-Score'
 csv[2, 1] <- 'Trainning metrics'
+
+# TRAINNING RESULTS
+# Literature
+X <- dataset_cv[,control_features[1:(length(control_features) - 1)]]
+y <- dataset_cv[,'Result']
+train_results_literature <- decision_tree(X, y, X, y)
+# Target approach
+X <- dataset_cv[,target_features[1:(length(target_features) - 1)]]
+y <- dataset_cv[,'Result']
+train_results_target <- decision_tree(X, y, X, y)
+
+# SAVING RESULTS
 r <- metrics(train_results_literature)
 csv[2, 2] <- r[['confusion_matrix']][2, 2]
 csv[2, 3] <- r[['confusion_matrix']][1, 1]
@@ -116,8 +96,28 @@ csv[2, 13] <- r[['precision']]
 csv[2, 14] <- r[['recall']]
 csv[2, 15] <- r[['Fscore']]
 
-for (i in 1:10) {
-    r <- metrics(results_literature[i])
+
+# CROSS-VALIDATION
+folds <- createFolds(dataset_cv[,'Result'])
+names <- names(folds)
+for (i in 1:length(names)) {
+    train_fold <- dataset_cv[-folds[[names[i]]],]
+    cv_fold <- dataset_cv[folds[[names[i]]],]
+    # Literature
+    X <- train_fold[,control_features[1:(length(control_features) - 1)]]
+    y <- train_fold[,'Result']
+    X_cv <- cv_fold[,control_features[1:(length(control_features) - 1)]]
+    y_cv <- cv_fold[,'Result']
+    results_literature <- decision_tree(X, y, X_cv, y_cv)
+    # Target approach
+    X <- train_fold[,target_features[1:(length(target_features) - 1)]]
+    y <- train_fold[,'Result']
+    X_cv <- cv_fold[,target_features[1:(length(target_features) - 1)]]
+    y_cv <- cv_fold[,'Result']
+    results_target <- decision_tree(X, y, X_cv, y_cv)
+    # Saving results
+    csv[2 + i, 1] <- 'Fold'
+    r <- metrics(results_literature)
     csv[2 + i, 2] <- r[['confusion_matrix']][2, 2]
     csv[2 + i, 3] <- r[['confusion_matrix']][1, 1]
     csv[2 + i, 4] <- r[['confusion_matrix']][1, 2]
@@ -125,7 +125,7 @@ for (i in 1:10) {
     csv[2 + i, 6] <- r[['precision']]
     csv[2 + i, 7] <- r[['recall']]
     csv[2 + i, 8] <- r[['Fscore']]
-    r <- metrics(results_target[i])
+    r <- metrics(results_target)
     csv[2 + i, 9]  <- r[['confusion_matrix']][2, 2]
     csv[2 + i, 10] <- r[['confusion_matrix']][1, 1]
     csv[2 + i, 11] <- r[['confusion_matrix']][1, 2]
@@ -135,7 +135,7 @@ for (i in 1:10) {
     csv[2 + i, 15] <- r[['Fscore']]
 }
 
-write.table(csv, file="results.csv", sep=",", qmethod='double')
+write.table(csv, file="results.csv", sep=",", qmethod='double', row.names=FALSE, col.names=FALSE)
 
 
 
