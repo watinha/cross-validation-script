@@ -51,12 +51,15 @@ s_v_m <- function (X, y, X_cv, y_cv) {
 }
 
 folds <- createFolds(dataset_cv[,'Result'])
+print('C5.0 data collecting - decision tree...')
 crossValidation(dataset_cv, dataset_test, folds, target_features, decision_tree, 'output/decision_tree_target.csv');
 crossValidation(dataset_cv, dataset_test, folds, control_features, decision_tree, 'output/decision_tree_literature.csv');
 
+print('Random forest data collecting ...')
 crossValidation(dataset_cv, dataset_test, folds, target_features, random_forest, 'output/random_forest_target.csv');
 crossValidation(dataset_cv, dataset_test, folds, control_features, random_forest, 'output/random_forest_literature.csv');
 
+print('E1071 - SVM...')
 crossValidation(dataset_cv, dataset_test, folds, target_features, s_v_m, 'output/svm_target.csv');
 crossValidation(dataset_cv, dataset_test, folds, control_features, s_v_m, 'output/svm_literature.csv');
 
