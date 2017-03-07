@@ -1,6 +1,6 @@
 %Attribute xbi= 1, quando existir xbi independente do browser.
 
-@RELATION dataset 
+@RELATION dataset
 @ATTRIBUTE height NUMERIC
 @ATTRIBUTE width NUMERIC
 @ATTRIBUTE top NUMERIC
@@ -38,9 +38,9 @@
 @ATTRIBUTE diff-1 NUMERIC
 @ATTRIBUTE diff-2 NUMERIC
 
-@ATTRIBUTE XBI {0,1}
+@ATTRIBUTE Result {0,1}
 
-@DATA 
+@DATA
 
 233,1024,0,0,0,0,0,0,0,0,640,1024,0,0,0,0,0,0,0,0,656,1280,0,0,0,0,0,0,0,0,0.0,0.0,0.5121188428459734,0.0,0.0,494525.0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0,

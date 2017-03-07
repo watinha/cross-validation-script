@@ -81,4 +81,3 @@ crossValidation <- function (dataset_cv, dataset_test, folds, target_features, c
 
     write.table(csv, file=table_name, sep=",", qmethod='double', row.names=FALSE, col.names=FALSE)
 }
-
