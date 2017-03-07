@@ -11,7 +11,7 @@ metrics <- function (confusion_table) {
 
 crossValidation <- function (dataset_cv, dataset_test, folds, target_features, call, table_name) {
     # Setting output
-    csv <- matrix(nrow = 13, # 1 column header + 1 trainning result + 10 fold cross-validation result
+    csv <- matrix(nrow = 14, # 1 column header + 1 trainning result + 10 fold cross-validation result
                   ncol = 8) # 1 column for title + 7 metrics
 
     csv[1, 2] <- 'TP'
@@ -62,6 +62,15 @@ crossValidation <- function (dataset_cv, dataset_test, folds, target_features, c
         csv[2 + i, 7] <- r[['recall']]
         csv[2 + i, 8] <- r[['Fscore']]
     }
+    # CV total
+    csv[13, 1] <- 'CV Avg'
+    csv[13, 2] <- mean(as.integer(csv[3:12, 2]))
+    csv[13, 3] <- mean(as.integer(csv[3:12, 3]))
+    csv[13, 4] <- mean(as.integer(csv[3:12, 4]))
+    csv[13, 5] <- mean(as.integer(csv[3:12, 5]))
+    csv[13, 6] <- mean(as.double(csv[3:12, 6]))
+    csv[13, 7] <- mean(as.double(csv[3:12, 7]))
+    csv[13, 8] <- mean(as.double(csv[3:12, 8]))
 
     # TEST RESULTS
     # Target approach
@@ -69,15 +78,15 @@ crossValidation <- function (dataset_cv, dataset_test, folds, target_features, c
     y_test <- dataset_test[,'Result']
     test_results_target <- call(X, y, X_test, y_test)
     # Saving results
-    csv[13, 1] <- 'Test'
+    csv[14, 1] <- 'Test'
     r <- metrics(test_results_target)
-    csv[13, 2] <- r[['confusion_matrix']][2, 2]
-    csv[13, 3] <- r[['confusion_matrix']][1, 1]
-    csv[13, 4] <- r[['confusion_matrix']][1, 2]
-    csv[13, 5] <- r[['confusion_matrix']][2, 1]
-    csv[13, 6] <- r[['precision']]
-    csv[13, 7] <- r[['recall']]
-    csv[13, 8] <- r[['Fscore']]
+    csv[14, 2] <- r[['confusion_matrix']][2, 2]
+    csv[14, 3] <- r[['confusion_matrix']][1, 1]
+    csv[14, 4] <- r[['confusion_matrix']][1, 2]
+    csv[14, 5] <- r[['confusion_matrix']][2, 1]
+    csv[14, 6] <- r[['precision']]
+    csv[14, 7] <- r[['recall']]
+    csv[14, 8] <- r[['Fscore']]
 
     write.table(csv, file=table_name, sep=",", qmethod='double', row.names=FALSE, col.names=FALSE)
     return (csv)
