@@ -63,4 +63,6 @@ s_v_m <- function (X, y, X_cv, y_cv) {
 
 folds <- createFolds(dataset_cv[,'Result'])
 print('C5.0 data collecting - decision tree...')
-crossValidation(dataset_cv, dataset_cv, folds, features1, decision_tree, 'output/decision_tree_target.csv');
+r <- crossValidation(dataset_cv, dataset_cv, folds, features1, decision_tree, 'output/decision_tree_target.csv');
+
+print(r)
