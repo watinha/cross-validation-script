@@ -86,6 +86,3 @@ dataset_test[, 'proportionNumbers'] <- as.numeric(dataset_test[,'proportionNumbe
 dataset_test[, 'links80percent']    <- as.numeric(dataset_test[,'links80percent']) - 1
 
 crossValidation(dataset_cv, dataset_test, folds, control_features, s_v_m, 'output/svm_literature.csv');
-
-
-

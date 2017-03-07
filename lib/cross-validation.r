@@ -80,5 +80,6 @@ crossValidation <- function (dataset_cv, dataset_test, folds, target_features, c
     csv[13, 8] <- r[['Fscore']]
 
     write.table(csv, file=table_name, sep=",", qmethod='double', row.names=FALSE, col.names=FALSE)
+    return (csv)
 }
 
