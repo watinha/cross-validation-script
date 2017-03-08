@@ -86,3 +86,86 @@ dataset_test[, 'proportionNumbers'] <- as.numeric(dataset_test[,'proportionNumbe
 dataset_test[, 'links80percent']    <- as.numeric(dataset_test[,'links80percent']) - 1
 
 r_e1071_lit <- crossValidation(dataset_cv, dataset_test, folds, control_features, s_v_m, 'output/svm_literature.csv');
+
+# GENERAL COMPARISON
+r_precision <- matrix(nrow=14, ncol=7)
+r_precision[1, 2] <- 'C50 Lit'
+r_precision[1, 3] <- 'C50 Tar'
+r_precision[1, 4] <- 'Forest Lit'
+r_precision[1, 5] <- 'Forest Tar'
+r_precision[1, 6] <- 'e1071 Lit'
+r_precision[1, 7] <- 'e1071 Tar'
+r_precision[2, 1] <- 'Trainning'
+r_precision[3, 1] <- 'Fold 1'
+r_precision[4, 1] <- 'Fold 2'
+r_precision[5, 1] <- 'Fold 3'
+r_precision[6, 1] <- 'Fold 4'
+r_precision[7, 1] <- 'Fold 5'
+r_precision[8, 1] <- 'Fold 6'
+r_precision[9, 1] <- 'Fold 7'
+r_precision[10, 1] <- 'Fold 8'
+r_precision[11, 1] <- 'Fold 9'
+r_precision[12, 1] <- 'Fold 10'
+r_precision[13, 1] <- 'CV all'
+r_precision[14, 1] <- 'Test'
+r_precision[2:length(r_precision[,1]),2] <- r_c5_lit[2:length(r_c5_lit[,1]),6]
+r_precision[2:length(r_precision[,1]),3] <- r_c5_target[2:length(r_c5_lit[,1]),6]
+r_precision[2:length(r_precision[,1]),4] <- r_rf_lit[2:length(r_c5_lit[,1]),6]
+r_precision[2:length(r_precision[,1]),5] <- r_rf_target[2:length(r_c5_lit[,1]),6]
+r_precision[2:length(r_precision[,1]),6] <- r_e1071_lit[2:length(r_c5_lit[,1]),6]
+r_precision[2:length(r_precision[,1]),7] <- r_e1071_target[2:length(r_c5_lit[,1]),6]
+write.table(r_precision, 'output/precision.csv', sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
+r_recall <- matrix(nrow=14, ncol=7)
+r_recall[1, 2] <- 'C50 Lit'
+r_recall[1, 3] <- 'C50 Tar'
+r_recall[1, 4] <- 'Forest Lit'
+r_recall[1, 5] <- 'Forest Tar'
+r_recall[1, 6] <- 'e1071 Lit'
+r_recall[1, 7] <- 'e1071 Tar'
+r_recall[2, 1] <- 'Trainning'
+r_recall[3, 1] <- 'Fold 1'
+r_recall[4, 1] <- 'Fold 2'
+r_recall[5, 1] <- 'Fold 3'
+r_recall[6, 1] <- 'Fold 4'
+r_recall[7, 1] <- 'Fold 5'
+r_recall[8, 1] <- 'Fold 6'
+r_recall[9, 1] <- 'Fold 7'
+r_recall[10, 1] <- 'Fold 8'
+r_recall[11, 1] <- 'Fold 9'
+r_recall[12, 1] <- 'Fold 10'
+r_recall[13, 1] <- 'CV all'
+r_recall[14, 1] <- 'Test'
+r_recall[2:length(r_recall[,1]),2] <- r_c5_lit[2:length(r_c5_lit[,1]),7]
+r_recall[2:length(r_recall[,1]),3] <- r_c5_target[2:length(r_c5_lit[,1]),7]
+r_recall[2:length(r_recall[,1]),4] <- r_rf_lit[2:length(r_c5_lit[,1]),7]
+r_recall[2:length(r_recall[,1]),5] <- r_rf_target[2:length(r_c5_lit[,1]),7]
+r_recall[2:length(r_recall[,1]),6] <- r_e1071_lit[2:length(r_c5_lit[,1]),7]
+r_recall[2:length(r_recall[,1]),7] <- r_e1071_target[2:length(r_c5_lit[,1]),7]
+write.table(r_recall, 'output/recall.csv', sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
+r_fscore <- matrix(nrow=14, ncol=7)
+r_fscore[1, 2] <- 'C50 Lit'
+r_fscore[1, 3] <- 'C50 Tar'
+r_fscore[1, 4] <- 'Forest Lit'
+r_fscore[1, 5] <- 'Forest Tar'
+r_fscore[1, 6] <- 'e1071 Lit'
+r_fscore[1, 7] <- 'e1071 Tar'
+r_fscore[2, 1] <- 'Trainning'
+r_fscore[3, 1] <- 'Fold 1'
+r_fscore[4, 1] <- 'Fold 2'
+r_fscore[5, 1] <- 'Fold 3'
+r_fscore[6, 1] <- 'Fold 4'
+r_fscore[7, 1] <- 'Fold 5'
+r_fscore[8, 1] <- 'Fold 6'
+r_fscore[9, 1] <- 'Fold 7'
+r_fscore[10, 1] <- 'Fold 8'
+r_fscore[11, 1] <- 'Fold 9'
+r_fscore[12, 1] <- 'Fold 10'
+r_fscore[13, 1] <- 'CV all'
+r_fscore[14, 1] <- 'Test'
+r_fscore[2:length(r_fscore[,1]),2] <- r_c5_lit[2:length(r_c5_lit[,1]),8]
+r_fscore[2:length(r_fscore[,1]),3] <- r_c5_target[2:length(r_c5_lit[,1]),8]
+r_fscore[2:length(r_fscore[,1]),4] <- r_rf_lit[2:length(r_c5_lit[,1]),8]
+r_fscore[2:length(r_fscore[,1]),5] <- r_rf_target[2:length(r_c5_lit[,1]),8]
+r_fscore[2:length(r_fscore[,1]),6] <- r_e1071_lit[2:length(r_c5_lit[,1]),8]
+r_fscore[2:length(r_fscore[,1]),7] <- r_e1071_target[2:length(r_c5_lit[,1]),8]
+write.table(r_fscore, 'output/fscore.csv', sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
