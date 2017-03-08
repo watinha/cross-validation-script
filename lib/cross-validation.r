@@ -5,7 +5,11 @@ metrics <- function (confusion_table) {
     fn <- confusion_table[2,1]
     precision <- tp / (tp + fp)
     recall <- tp / (tp + fn)
-    Fscore <- 2 * ((precision * recall) / (precision + recall))
+    if (precision == 0 | recall == 0) {
+        Fscore <- 0
+    } else {
+        Fscore <- 2 * ((precision * recall) / (precision + recall))
+    }
     return (list(confusion_matrix=confusion_table, precision=precision, recall=recall, Fscore=Fscore))
 }
 
