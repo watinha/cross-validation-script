@@ -52,12 +52,12 @@ s_v_m <- function (X, y, X_cv, y_cv) {
 
 folds <- createFolds(dataset_cv[,'Result'])
 print('C5.0 data collecting - decision tree...')
-crossValidation(dataset_cv, dataset_test, folds, target_features, decision_tree, 'output/decision_tree_target.csv');
-crossValidation(dataset_cv, dataset_test, folds, control_features, decision_tree, 'output/decision_tree_literature.csv');
+r_c5_target <- crossValidation(dataset_cv, dataset_test, folds, target_features, decision_tree, 'output/decision_tree_target.csv');
+r_c5_lit <- crossValidation(dataset_cv, dataset_test, folds, control_features, decision_tree, 'output/decision_tree_literature.csv');
 
 print('Random forest data collecting ...')
-crossValidation(dataset_cv, dataset_test, folds, target_features, random_forest, 'output/random_forest_target.csv');
-crossValidation(dataset_cv, dataset_test, folds, control_features, random_forest, 'output/random_forest_literature.csv');
+r_rf_target <- crossValidation(dataset_cv, dataset_test, folds, target_features, random_forest, 'output/random_forest_target.csv');
+r_rf_lit <- crossValidation(dataset_cv, dataset_test, folds, control_features, random_forest, 'output/random_forest_literature.csv');
 
 print('E1071 - SVM... Regularizing nominal features')
 
@@ -65,7 +65,7 @@ dataset_cv[, 'displayed'] <- as.numeric(dataset_cv[,'displayed']) - 1
 
 dataset_test[, 'displayed'] <- as.numeric(dataset_test[,'displayed']) - 1
 
-crossValidation(dataset_cv, dataset_test, folds, target_features, s_v_m, 'output/svm_target.csv');
+r_e1071_target <- crossValidation(dataset_cv, dataset_test, folds, target_features, s_v_m, 'output/svm_target.csv');
 
 dataset_cv[, 'table'] <- as.numeric(dataset_cv[,'table']) - 1
 dataset_cv[, 'list'] <- as.numeric(dataset_cv[,'list']) - 1
@@ -85,4 +85,4 @@ dataset_test[, 'img']  <- as.numeric(dataset_test[,'img']) - 1
 dataset_test[, 'proportionNumbers'] <- as.numeric(dataset_test[,'proportionNumbers']) - 1
 dataset_test[, 'links80percent']    <- as.numeric(dataset_test[,'links80percent']) - 1
 
-crossValidation(dataset_cv, dataset_test, folds, control_features, s_v_m, 'output/svm_literature.csv');
+r_e1071_lit <- crossValidation(dataset_cv, dataset_test, folds, control_features, s_v_m, 'output/svm_literature.csv');
