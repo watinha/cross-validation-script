@@ -169,3 +169,35 @@ r_fscore[2:length(r_fscore[,1]),5] <- r_rf_target[2:length(r_c5_lit[,1]),8]
 r_fscore[2:length(r_fscore[,1]),6] <- r_e1071_lit[2:length(r_c5_lit[,1]),8]
 r_fscore[2:length(r_fscore[,1]),7] <- r_e1071_target[2:length(r_c5_lit[,1]),8]
 write.table(r_fscore, 'output/fscore.csv', sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
+
+# generate Confidence Intervals
+fscore_CI <- matrix(nrow=61, ncol=2)
+fscore_CI[1, 1] <- 'F.Score'
+fscore_CI[1, 2] <- 'Algorithm'
+fscore_CI[2:11, 1] <- r_c5_lit[3:12,8]
+fscore_CI[2:11, 2] <- 'C50 Literature'
+fscore_CI[12:21, 1] <- r_c5_target[3:12,8]
+fscore_CI[12:21, 2] <- 'C50 Target'
+fscore_CI[22:31, 1] <- r_rf_lit[3:12,8]
+fscore_CI[22:31, 2] <- 'Forest Literature'
+fscore_CI[32:41, 1] <- r_rf_target[3:12,8]
+fscore_CI[32:41, 2] <- 'Forest Target'
+fscore_CI[42:51, 1] <- r_e1071_lit[3:12,8]
+fscore_CI[42:51, 2] <- 'e1071 Literature'
+fscore_CI[52:61, 1] <- r_e1071_target[3:12,8]
+fscore_CI[52:61, 2] <- 'e1071 Target'
+write.table(fscore_CI, 'output/fscore-CI.csv', sep=';', qmethod='double', row.names=FALSE, col.names=FALSE)
+
+fscore_CI <- read.table('output/fscore-CI.csv', header=TRUE, sep=';')
+
+anova <- aov(F.Score ~ Algorithm, fscore_CI)
+summary(anova)
+tuk <- TukeyHSD(anova, ordered=T)
+tuk
+
+png(file="images/confidence-intervals.png", height=900, width=800)
+par(mar=c(5.1, 15, 5.1, 2))
+plot(tuk, las=1)
+title(xlab="Difference in F-Score means according to the machine learning approach used", line=2)
+
+print(tuk, digits=20)
