@@ -61,8 +61,11 @@ s_v_m <- function (X, y, X_cv, y_cv) {
     return (table(y_cv, cv_predictions))
 }
 
-folds <- createFolds(dataset_cv[,'Result'])
-print('C5.0 data collecting - decision tree...')
-r <- crossValidation(dataset_cv, dataset_cv, folds, features1, decision_tree, 'output/decision_tree_target.csv');
+folds <- createFolds(dataset_cv[,'Result'], k=100)
+errors <- c()
 
-print(r)
+print('C5.0 data collecting - decision tree... - Learning curve')
+for (i in 1:100) {
+    partial_dataset <- dataset[]
+    r <- crossValidation(dataset_cv, dataset_cv, folds, features1, decision_tree, 'output/decision_tree_target.csv');
+}
