@@ -74,9 +74,9 @@ crossValidation <- function (dataset_cv, dataset_test, folds, target_features, c
 
     # TEST RESULTS
     # Target approach
-    X <- dataset_test[,target_features[1:(length(target_features) - 1)]]
-    y <- dataset_test[,'Result']
-    test_results_target <- call(X, y, X, y)
+    X_test <- dataset_test[,target_features[1:(length(target_features) - 1)]]
+    y_test <- dataset_test[,'Result']
+    test_results_target <- call(X, y, X_test, y_test)
     # Saving results
     csv[14, 1] <- 'Test'
     r <- metrics(test_results_target)
