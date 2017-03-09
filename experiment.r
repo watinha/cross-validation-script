@@ -3,6 +3,7 @@ library(e1071)
 library(randomForest)
 library(RWeka)
 library(caret)
+source('lib/learning-curve.r')
 source('lib/cross-validation.r')
 
 dataset_cv <- read.arff('data/real-dataset.trainning.arff')
