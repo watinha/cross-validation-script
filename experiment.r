@@ -3,7 +3,7 @@ library(e1071)
 library(randomForest)
 library(RWeka)
 library(caret)
-source('lib/cross-validation.r')
+source('lib/learning-curve.r')
 
 dataset_cv <- read.arff('data/dataset.arff')
 
@@ -60,12 +60,4 @@ s_v_m <- function (X, y, X_cv, y_cv) {
     cv_predictions <- predict(model, X_cv)
     return (table(y_cv, cv_predictions))
 }
-
-folds <- createFolds(dataset_cv[,'Result'], k=100)
-errors <- c()
-
-print('C5.0 data collecting - decision tree... - Learning curve')
-for (i in 1:100) {
-    partial_dataset <- dataset[]
-    r <- crossValidation(dataset_cv, dataset_cv, folds, features1, decision_tree, 'output/decision_tree_target.csv');
-}
+learningCurve(dataset_cv, features1, decision_tree)
