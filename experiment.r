@@ -90,12 +90,12 @@ r_e1071_lit <- crossValidation(dataset_cv, dataset_test, folds, control_features
 
 # GENERAL COMPARISON
 r_precision <- matrix(nrow=14, ncol=7)
-r_precision[1, 2] <- 'C50 Lit'
-r_precision[1, 3] <- 'C50 Tar'
-r_precision[1, 4] <- 'Forest Lit'
-r_precision[1, 5] <- 'Forest Tar'
-r_precision[1, 6] <- 'e1071 Lit'
-r_precision[1, 7] <- 'e1071 Tar'
+r_precision[1, 2] <- 'C50L'
+r_precision[1, 3] <- 'C50T'
+r_precision[1, 4] <- 'ForestL'
+r_precision[1, 5] <- 'ForestT'
+r_precision[1, 6] <- 'e1071L'
+r_precision[1, 7] <- 'e1071T'
 r_precision[2, 1] <- 'Trainning'
 r_precision[3, 1] <- 'Fold 1'
 r_precision[4, 1] <- 'Fold 2'
@@ -115,14 +115,14 @@ r_precision[2:length(r_precision[,1]),4] <- r_rf_lit[2:length(r_c5_lit[,1]),6]
 r_precision[2:length(r_precision[,1]),5] <- r_rf_target[2:length(r_c5_lit[,1]),6]
 r_precision[2:length(r_precision[,1]),6] <- r_e1071_lit[2:length(r_c5_lit[,1]),6]
 r_precision[2:length(r_precision[,1]),7] <- r_e1071_target[2:length(r_c5_lit[,1]),6]
-write.table(r_precision, 'output/precision.csv', sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
+write.table(r_precision, 'output/precision.csv', quote=FALSE, sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
 r_recall <- matrix(nrow=14, ncol=7)
-r_recall[1, 2] <- 'C50 Lit'
-r_recall[1, 3] <- 'C50 Tar'
-r_recall[1, 4] <- 'Forest Lit'
-r_recall[1, 5] <- 'Forest Tar'
-r_recall[1, 6] <- 'e1071 Lit'
-r_recall[1, 7] <- 'e1071 Tar'
+r_recall[1, 2] <- 'C50L'
+r_recall[1, 3] <- 'C50T'
+r_recall[1, 4] <- 'ForestL'
+r_recall[1, 5] <- 'ForestT'
+r_recall[1, 6] <- 'e1071L'
+r_recall[1, 7] <- 'e1071T'
 r_recall[2, 1] <- 'Trainning'
 r_recall[3, 1] <- 'Fold 1'
 r_recall[4, 1] <- 'Fold 2'
@@ -142,14 +142,14 @@ r_recall[2:length(r_recall[,1]),4] <- r_rf_lit[2:length(r_c5_lit[,1]),7]
 r_recall[2:length(r_recall[,1]),5] <- r_rf_target[2:length(r_c5_lit[,1]),7]
 r_recall[2:length(r_recall[,1]),6] <- r_e1071_lit[2:length(r_c5_lit[,1]),7]
 r_recall[2:length(r_recall[,1]),7] <- r_e1071_target[2:length(r_c5_lit[,1]),7]
-write.table(r_recall, 'output/recall.csv', sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
+write.table(r_recall, 'output/recall.csv', quote=FALSE, sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
 r_fscore <- matrix(nrow=14, ncol=7)
-r_fscore[1, 2] <- 'C50 Lit'
-r_fscore[1, 3] <- 'C50 Tar'
-r_fscore[1, 4] <- 'Forest Lit'
-r_fscore[1, 5] <- 'Forest Tar'
-r_fscore[1, 6] <- 'e1071 Lit'
-r_fscore[1, 7] <- 'e1071 Tar'
+r_fscore[1, 2] <- 'C50L'
+r_fscore[1, 3] <- 'C50T'
+r_fscore[1, 4] <- 'ForestL'
+r_fscore[1, 5] <- 'ForestT'
+r_fscore[1, 6] <- 'e1071L'
+r_fscore[1, 7] <- 'e1071T'
 r_fscore[2, 1] <- 'Trainning'
 r_fscore[3, 1] <- 'Fold 1'
 r_fscore[4, 1] <- 'Fold 2'
@@ -169,7 +169,7 @@ r_fscore[2:length(r_fscore[,1]),4] <- r_rf_lit[2:length(r_c5_lit[,1]),8]
 r_fscore[2:length(r_fscore[,1]),5] <- r_rf_target[2:length(r_c5_lit[,1]),8]
 r_fscore[2:length(r_fscore[,1]),6] <- r_e1071_lit[2:length(r_c5_lit[,1]),8]
 r_fscore[2:length(r_fscore[,1]),7] <- r_e1071_target[2:length(r_c5_lit[,1]),8]
-write.table(r_fscore, 'output/fscore.csv', sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
+write.table(r_fscore, 'output/fscore.csv', quote=FALSE, sep=',', qmethod='double', row.names=FALSE, col.names=FALSE)
 
 # generate Confidence Intervals
 fscore_CI <- matrix(nrow=61, ncol=2)
